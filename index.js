@@ -78,3 +78,4 @@ function include(specified, cb) {
 module.exports = allTypes
 module.exports.exclude = exclude
 module.exports.include = include
+module.exports.iterate = iterate
