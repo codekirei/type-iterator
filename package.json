@@ -1,0 +1,17 @@
+{
+  "name": "type-iterator",
+  "version": "0.1.0",
+  "description": "run a callback against specific js types",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "type",
+    "types",
+    "iterator",
+    "iteration"
+  ],
+  "author": "",
+  "license": "MIT"
+}
