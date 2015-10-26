@@ -1,0 +1,6 @@
+- [ ] jsdoc strings
+- [ ] readme
+- [ ] github
+- [ ] npm
+- [ ] travis
+- [ ] package.json
