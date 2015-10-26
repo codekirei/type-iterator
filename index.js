@@ -1,60 +1,80 @@
-/* eslint no-undefined:0 */
 'use strict'
 
-let types = {
-  undefined,
-  null: null,
-  string: 'abc',
-  boolean: true,
-  number: 1,
-  function: () => {},
-  array: [],
-  object: {}
+//----------------------------------------------------------
+// Types
+//----------------------------------------------------------
+const types = {
+  'undefined': undefined,
+  'null': null,
+  'string': 'abc',
+  'boolean': true,
+  'number': 1,
+  'function': () => {},
+  'array': [],
+  'object': {}
+}
+
+//----------------------------------------------------------
+// Logic
+//----------------------------------------------------------
+/**
+ *
+ * @param {}
+ */
+function iterate(obj, cb) {
+  return Object.keys(obj).map(key => {
+    return cb(obj[key], key)
+  })
 }
 
 /**
- * @function except
+ *
+ * @param {}
+ */
+function allTypes(cb) {
+  return cb
+    ? iterate(types, cb)
+    : types
+}
+
+/**
+ * @function exclude
  * @param {*} exceptions - types or type to exclude
  * @returns {Object} - types with exceptions excluded
  */
-function except(exceptions) {
-  // copy types
-  let typesCopy = {}
-  Object.keys(types).map(key => {
-    typesCopy[key] = types[key]
-  })
+function exclude(exceptions, cb) {
+  let clone = {}
+  iterate(types, (val, key) => clone[key] = val)
 
-  // remove exceptions
   exceptions instanceof Array
-    ? exceptions.map(exception => {
-      delete typesCopy[exception]
-    })
-    : delete typesCopy[exceptions]
+    ? exceptions.map(type => delete clone[type])
+    : delete clone[exceptions]
 
-  // return modified clone
-  return typesCopy
+  return cb
+    ? iterate(clone, cb)
+    : clone
 }
 
 /**
- * @function only
+ * @function include
  * @param {*} specified - types or type to include
  * @returns {Object} - types or type included
  */
-function only(specified) {
-  if (specified instanceof Array) {
-    return specified.reduce((accum, type) => {
-      accum[type] = types[type]
-      return accum
-    }, {})
-  }
-  const type = {}
-  type[specified] = types[specified]
-  return type
+function include(specified, cb) {
+  let clone = {}
+
+  specified instanceof Array
+    ? specified.map(type => clone[type] = types[type])
+    : clone[specified] = types[specified]
+
+  return cb
+    ? iterate(clone, cb)
+    : clone
 }
 
-// exports
-module.exports = {
-  all: types,
-  except,
-  only
-}
+//----------------------------------------------------------
+// Exports
+//----------------------------------------------------------
+module.exports = allTypes
+module.exports.exclude = exclude
+module.exports.include = include
