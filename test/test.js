@@ -9,7 +9,7 @@ const sinon = require('sinon')
 const clone = require('lodash.clonedeep')
 
 // Local
-const ti = require('./')
+const ti = require('../')
 
 //----------------------------------------------------------
 // Tests
@@ -20,7 +20,7 @@ const types = {
   'string': 'abc',
   'boolean': true,
   'number': 1,
-  'function': () => {},
+  'function': ()=>{},
   'array': [],
   'object': {}
 }

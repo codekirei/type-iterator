@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
+    "cover": "istanbul cover _mocha &> /dev/null && istanbul report text && rm -r ./coverage",
     "dev": "find *.js | entr -r mocha -R min"
   },
   "keywords": [
