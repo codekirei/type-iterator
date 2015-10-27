@@ -9,7 +9,7 @@ const types = {
   'string': 'abc',
   'boolean': true,
   'number': 1,
-  'function': () => {},
+  'function': new Function(),
   'array': [],
   'object': {}
 }
@@ -79,3 +79,4 @@ module.exports = allTypes
 module.exports.exclude = exclude
 module.exports.include = include
 module.exports.iterate = iterate
+module.exports.types = types

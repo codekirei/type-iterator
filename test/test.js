@@ -10,20 +10,23 @@ const clone = require('lodash.clonedeep')
 
 // Local
 const ti = require('../')
+const types = ti.types
 
 //----------------------------------------------------------
 // Tests
 //----------------------------------------------------------
-const types = {
-  'undefined': undefined,
-  'null': null,
-  'string': 'abc',
-  'boolean': true,
-  'number': 1,
-  'function': ()=>{},
-  'array': [],
-  'object': {}
-}
+describe('types', () => {
+  it('type values are what they claim to be', () => {
+    assert.isUndefined(types.undefined)
+    assert.isNull(types.null)
+    assert.isString(types.string)
+    assert.isBoolean(types.boolean)
+    assert.isNumber(types.number)
+    assert.isFunction(types.function)
+    assert.isArray(types.array)
+    assert.isObject(types.object)
+  })
+})
 
 describe('iterate', () => {
   it('call cb with (val, key) params for each pair in obj', () => {
