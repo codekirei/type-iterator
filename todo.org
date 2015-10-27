@@ -1,6 +1,6 @@
-- [ ] jsdoc strings
+- [X] jsdoc strings
+- [ ] package.json + github
 - [ ] readme
-- [ ] github
-- [ ] npm
 - [ ] travis
-- [ ] package.json
+- [ ] coverage
+- [ ] npm

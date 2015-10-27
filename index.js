@@ -18,8 +18,10 @@ const types = {
 // Logic
 //----------------------------------------------------------
 /**
- *
- * @param {}
+ * @function iterate
+ * @param {object} obj - object to iterate over
+ * @param {function} cb - function to call on each K:V pair in object
+ * @returns {array} - array of callback results
  */
 function iterate(obj, cb) {
   return Object.keys(obj).map(key => {
@@ -28,8 +30,9 @@ function iterate(obj, cb) {
 }
 
 /**
- *
- * @param {}
+ * @function allTypes
+ * @param {function} [cb] - function to call on each K:V pair in object
+ * @returns {array|object} - array of cb results or types object
  */
 function allTypes(cb) {
   return cb
@@ -39,8 +42,9 @@ function allTypes(cb) {
 
 /**
  * @function exclude
- * @param {*} exceptions - types or type to exclude
- * @returns {Object} - types with exceptions excluded
+ * @param {string|strings[]} exceptions - types or type to exclude
+ * @param {function} [cb] - function to call on each K:V pair in object
+ * @returns {array|object} - array of cb results or modified types object
  */
 function exclude(exceptions, cb) {
   let clone = {}
@@ -57,8 +61,9 @@ function exclude(exceptions, cb) {
 
 /**
  * @function include
- * @param {*} specified - types or type to include
- * @returns {Object} - types or type included
+ * @param {string|strings[]} specified - types or type to include
+ * @param {function} [cb] - function to call on each K:V pair in object
+ * @returns {array|object} - array of cb results or modified types object
  */
 function include(specified, cb) {
   let clone = {}
