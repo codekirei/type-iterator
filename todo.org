@@ -1,5 +1,3 @@
-- [X] jsdoc strings
-- [ ] package.json + github
 - [ ] readme
 - [ ] travis
 - [ ] coverage
