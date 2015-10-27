@@ -6,7 +6,8 @@
   "repository": "codekirei/type-iterator",
   "scripts": {
     "test": "mocha",
-    "cover": "istanbul cover _mocha &> /dev/null && istanbul report text && rm -r ./coverage",
+    "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha &> /dev/null && istanbul report text && rm -r ./coverage",
     "dev": "find index.js test/test.js | entr -r mocha -R min"
   },
   "keywords": [
