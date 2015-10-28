@@ -35,6 +35,7 @@ I'm not opposed to adding them; I just didn't need them for my intended use of t
 Install and `require` in typical Node.js fashion.
 
 **Using in module:** `$ npm install --save type-iterator`
+
 **Using in tests:** `$ npm install --save-dev type-iterator`
 
 ## Usage
