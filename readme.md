@@ -89,7 +89,7 @@ Else return modified types object.
 const typeIterator = require('type-iterator')
 
 function exampleCb(val, key) {
-  console.log(`${key}: ${val}`)
+  console.log(key, ':', val)
 }
 
 //----------------------------------------------------------
@@ -130,20 +130,15 @@ typeIterator.include(typesToInclude, exampleCb)
 
 ## Gotchas
 
-Keep in mind that the `undefined` and `null` type literals evaluate to false in conditional expressions.
-Consider the following contrived example:
+Keep in mind that the `undefined` and `null` type literals evaluate to false in simple conditional expressions.
+Consider the following contrived example with an optional parameter and a type restriction using [kind-of](https://github.com/jonschlinkert/kind-of):
 
 ```js
 function awesomeFunc(opt) {
-  // if optional param is provided
-  if (opt) {
-    // and the correct type
-    if (opt instanceof Array || opt instanceof Object) {
-      // hooray! do stuff
-    } else {
-      // you dun goofed
-      throw new Error('wrong type')
-    }
+  if (opt && kindOf(opt) === 'array' || kindOf(opt) === 'object') {
+    console.log('hooray! opt provided')
+  } else if (opt) {
+    throw new Error('you dun goofed! wrong opt type')
   }
 }
 ```
@@ -152,21 +147,20 @@ So, we can use `type-iterator` to write a quick test that makes sure `awesomeFun
 
 ```js
 // WRONG DON'T DO THIS
-// mocha style test
+// mocha-style test
 describe('awesomeFunc', () => {
   it('throws for all types other than object and array', () => {
-    typeIterator.exclude(
-      ['object', 'array'],
-      assert.throws(() => awesomeFunc(type))
-    )
+    typeIterator.exclude(['object', 'array'], (val) => {
+      assert.throws(() => awesomeFunc(val))
+    })
   })
 })
 ```
 
 This test fails.
 Why?
-Because `awesomeFunc` checks for the optional param with `if(opt)`.
-`if(null)` and and `if(undefined)` are both false, so the logic inside the conditional, including the `throw`, never gets called.
+Because `awesomeFunc` checks for the optional param with `if (opt)`.
+`if(null)` and and `if(undefined)` are both false, so the `throw` never gets called for those values.
 The fix is either to make `awesomeFunc`'s optional param checking more robust or also exclude `'null'` and `'undefined'` in the test case.
 
 ## License
