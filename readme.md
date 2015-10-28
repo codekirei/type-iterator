@@ -131,7 +131,7 @@ const kindOf = require('kind-of')
 
 module.exports = function(text) {
   // explicitly throw if text isn't a string
-  if (kindOf(text) !== 'string) {
+  if (kindOf(text) !== 'string') {
     throw new Error('expected text param to be a String')
   }
 
