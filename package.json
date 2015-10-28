@@ -1,6 +1,6 @@
 {
   "name": "type-iterator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "run a callback function against specific js types",
   "main": "index.js",
   "repository": "codekirei/type-iterator",
