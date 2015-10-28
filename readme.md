@@ -40,9 +40,9 @@ Install and `require` in typical Node.js fashion.
 
 ## Usage
 
-The heart of this module is the following object:
+The following object is the heart of this module:
 
-```
+```js
 const types = {
   'undefined': undefined,
   'null': null,
@@ -55,7 +55,7 @@ const types = {
 }
 ```
 
-Each value is representative of the type named in its key.
+Each value is a type literal for the type named in its key.
 `type-iterator` provides three functions that iterate over these types:
 
 * `allTypes`: all the types (bet you didn't see that coming)
@@ -68,7 +68,7 @@ If no callback is provided, `type-iterator` will return a modified types object.
 
 **allTypes**
 
-```
+```js
 const typeIterator = require('type-iterator')
 
 function exampleCb(val, key) {
