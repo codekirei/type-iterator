@@ -80,7 +80,7 @@ Else return modified types object.
 
 ## Examples
 
-**Contrived**
+### Contrived
 
 ```js
 //----------------------------------------------------------
@@ -123,9 +123,35 @@ typeIterator.include(typesToInclude, exampleCb)
 
 ```
 
-**Realistic**
+### Semi-Realistic
 
 ```js
+// index.js
+const kindOf = require('kind-of')
+
+module.exports = function(text) {
+  // explicitly throw if text isn't a string
+  if (kindOf(text) !== 'string) {
+    throw new Error('expected text param to be a String')
+  }
+
+  // do cool jazz here
+}
+```
+
+```js
+// test.js
+const assert       = require('chai').assert
+const main         = require('./)
+const typeIterator = require('type-iterator')
+
+describe('main', () => {
+  it('throws when text is not a string', () => {
+    typeIterator.exclude('string', (val) => {
+      assert.throws(() => main(val))
+    })
+  })
+})
 ```
 
 ## Gotchas
@@ -146,7 +172,7 @@ function awesomeFunc(opt) {
 So, we can use `type-iterator` to write a quick test that makes sure `awesomeFunc` throws for all types other than array and object.
 
 ```js
-// WRONG DON'T DO THIS
+// WARNING THIS FAILS
 // mocha-style test
 describe('awesomeFunc', () => {
   it('throws for all types other than object and array', () => {
