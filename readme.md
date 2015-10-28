@@ -66,7 +66,7 @@ Else return unmodified types object.
 
 ### typeIterator.exclude(types, cb)
 
-Iterates over all types except specified exclusions.
+Iterates over all types except specified exclusion(s).
 `types` can be a string or array of strings.
 If cb is provided, iterate over types except exclusions and return results.
 Else return modified types object.
@@ -106,7 +106,7 @@ typeIterator(exampleCb) // console logs each key: val pair
 // note: could also use an array of strings as param (for multiple types)
 typeIterator.exclude('undefined')
 
-// console.log key: val type pairs except undefined
+// log all key: val type pairs except undefined
 typeIterator.exclude('undefined', exampleCb)
 
 //----------------------------------------------------------
@@ -118,7 +118,7 @@ const typesToInclude = ['object', 'array']
 // note: could also use a single string as param (for 1 type)
 typeIterator.include(typesToInclude)
 
-// console.log object and array key: val pairs
+// log object and array key: val pairs
 typeIterator.include(typesToInclude, exampleCb)
 
 ```
@@ -166,8 +166,8 @@ describe('awesomeFunc', () => {
 This test fails.
 Why?
 Because `awesomeFunc` checks for the optional param with `if(opt)`.
-`if(null)` and and `if(undefined)` are both false, so the logic in the conditional, including the `throw`, never gets called.
-The fix is either to make `awesomeFunc`'s optional param checking more robust or also exclude 'null' and 'undefined' in the test case.
+`if(null)` and and `if(undefined)` are both false, so the logic inside the conditional, including the `throw`, never gets called.
+The fix is either to make `awesomeFunc`'s optional param checking more robust or also exclude `'null'` and `'undefined'` in the test case.
 
 ## License
 
