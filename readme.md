@@ -1,7 +1,4 @@
-<div id="custom-style" style="
-  background: red;
-  color: white;
-">
+<div id="custom-style" style="background: red; color: white;">
 ![type-iterator](type-iterator.png)
 ---
 [![Build Status](https://travis-ci.org/codekirei/type-iterator.svg?branch=master)](https://travis-ci.org/codekirei/type-iterator)
