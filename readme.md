@@ -142,7 +142,7 @@ module.exports = function(text) {
 ```js
 // test.js
 const assert       = require('chai').assert
-const main         = require('./)
+const main         = require('./')
 const typeIterator = require('type-iterator')
 
 describe('main', () => {
