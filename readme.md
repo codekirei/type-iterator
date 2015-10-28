@@ -5,7 +5,7 @@
 
 <b>[About](#about)</b> | 
 <b>[Installation](#installation)</b> | 
-<b>[Usage](#usage)</b> | 
+<b>[API](#api)</b> | 
 <b>[Examples](#examples)</b> | 
 <b>[Gotchas](#gotchas)</b> | 
 <b>[License](#license)</b>
@@ -38,7 +38,7 @@ Install and `require` in typical Node.js fashion.
 
 **Using in tests:** `$ npm install --save-dev type-iterator`
 
-## Usage
+## API
 
 The following object is the heart of this module:
 
@@ -56,37 +56,118 @@ const types = {
 ```
 
 Each value is a type literal for the type named in its key.
-`type-iterator` provides three functions that iterate over these types:
+`type-iterator` provides three ways to iterate over these types.
 
-* `allTypes`: all the types (bet you didn't see that coming)
-* `exclude`: all types except the type or types specified
-* `include`: only the type or types specified
+### typeIterator(cb)
 
-Each function takes an optional callback with params `(val, key)`.
-`key` is an optional param.
-If no callback is provided, `type-iterator` will return a modified types object.
+Iterates over all types.
+If cb is provided, iterate and return array of cb results.
+Else return unmodified types object.
 
-**allTypes**
+### typeIterator.exclude(types, cb)
+
+Iterates over all types except specified exclusions.
+`types` can be a string or array of strings.
+If cb is provided, iterate over types except exclusions and return results.
+Else return modified types object.
+
+### typeIterator.include(types, cb)
+
+Iterates over only specified type(s).
+`types` can be a string or array of strings.
+If cb is provided, iterate over specified types and return results.
+Else return modified types object.
+
+## Examples
+
+**Contrived**
 
 ```js
+//----------------------------------------------------------
+// setup
+//----------------------------------------------------------
 const typeIterator = require('type-iterator')
 
 function exampleCb(val, key) {
   console.log(`${key}: ${val}`)
 }
 
-typeIterator()          // returns types object with all types
+//----------------------------------------------------------
+// allTypes
+//----------------------------------------------------------
+typeIterator() // returns types object with all types
+
 typeIterator(exampleCb) // console logs each key: val pair
+
+//----------------------------------------------------------
+// exclude
+//----------------------------------------------------------
+// get types object sans 'undefined' type
+// note: could also use an array of strings as param (for multiple types)
+typeIterator.exclude('undefined')
+
+// console.log key: val type pairs except undefined
+typeIterator.exclude('undefined', exampleCb)
+
+//----------------------------------------------------------
+// include
+//----------------------------------------------------------
+const typesToInclude = ['object', 'array']
+
+// get types object with only object and array key: val pairs
+// note: could also use a single string as param (for 1 type)
+typeIterator.include(typesToInclude)
+
+// console.log object and array key: val pairs
+typeIterator.include(typesToInclude, exampleCb)
 
 ```
 
-**exclude**
+**Realistic**
 
-**include**
-
-## Examples
+```js
+```
 
 ## Gotchas
+
+Keep in mind that the `undefined` and `null` type literals evaluate to false in conditional expressions.
+Consider the following contrived example:
+
+```js
+function awesomeFunc(opt) {
+  // if optional param is provided
+  if (opt) {
+    // and the correct type
+    if (opt instanceof Array || opt instanceof Object) {
+      // hooray! do stuff
+    } else {
+      // you dun goofed
+      throw new Error('wrong type')
+    }
+  }
+}
+```
+
+So, we can use `type-iterator` to write a quick test that makes sure `awesomeFunc` throws for all types other than array and object.
+
+```js
+// WRONG DON'T DO THIS
+// mocha style test
+describe('awesomeFunc', () => {
+  it('throws for all types other than object and array', () => {
+    typeIterator.exclude(
+      ['object', 'array'],
+      assert.throws(() => awesomeFunc(type))
+    )
+  })
+})
+```
+
+This test fails.
+Why?
+Because `awesomeFunc` checks for the optional param with `if(opt)`.
+`if(null)` and and `if(undefined)` are both false, so the logic in the conditional, including the `throw`, never gets called.
+The fix is either to make `awesomeFunc`'s optional param checking more robust or also exclude 'null' and 'undefined' in the test case.
 
 ## License
 
