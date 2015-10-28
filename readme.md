@@ -1,4 +1,3 @@
-<div id="custom-style" style="background: red; color: white;">
 ![type-iterator](type-iterator.png)
 ---
 [![Build Status](https://travis-ci.org/codekirei/type-iterator.svg?branch=master)](https://travis-ci.org/codekirei/type-iterator)
@@ -167,4 +166,3 @@ The fix is either to make `awesomeFunc`'s optional param checking more robust or
 ## License
 
 [MIT](license)
-</div>
