@@ -40,6 +40,50 @@ Install and `require` in typical Node.js fashion.
 
 ## Usage
 
+The heart of this module is the following object:
+
+```
+const types = {
+  'undefined': undefined,
+  'null': null,
+  'string': 'abc',
+  'boolean': true,
+  'number': 1,
+  'function': new Function(),
+  'array': [],
+  'object': {}
+}
+```
+
+Each value is representative of the type named in its key.
+`type-iterator` provides three functions that iterate over these types:
+
+* `allTypes`: all the types (bet you didn't see that coming)
+* `exclude`: all types except the type or types specified
+* `include`: only the type or types specified
+
+Each function takes an optional callback with params `(val, key)`.
+`key` is an optional param.
+If no callback is provided, `type-iterator` will return a modified types object.
+
+**allTypes**
+
+```
+const typeIterator = require('type-iterator')
+
+function exampleCb(val, key) {
+  console.log(`${key}: ${val}`)
+}
+
+typeIterator()          // returns types object with all types
+typeIterator(exampleCb) // console logs each key: val pair
+
+```
+
+**exclude**
+
+**include**
+
 ## Examples
 
 ## Gotchas
